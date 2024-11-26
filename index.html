@@ -10,14 +10,20 @@
     <!-- Tela Inicial -->
     <div id="tela-inicial">
         <h1>Manutenções Frota Ypióca</h1>
-        <button onclick="entrar()">Manutenção-corretiva</button>
+        <button onclick="entrarCorretiva()">Manutenção Corretiva</button>
+        <button onclick="entrarPreventiva()">Manutenção Preventiva</button>
     </div>
 
-    <!-- Tela de Opções -->
-    <div id="tela-opcoes" style="display:none;">
-        <h2>Escolha uma opção</h2>
+    <!-- Tela de Opções - Manutenção Corretiva -->
+    <div id="tela-opcoes-corretiva" style="display:none;">
+        <h2>Escolha uma opção de Manutenção Corretiva</h2>
         <button onclick="mostrarManutencaoPendentes()">Manutenções Pendentes</button>
         <button onclick="mostrarCadastrarManutencao()">Cadastrar Manutenção</button>
+    </div>
+
+    <!-- Tela de Opções - Manutenção Preventiva -->
+    <div id="tela-opcoes-preventiva" style="display:none;">
+        <h2>Escolha uma opção de Manutenção Preventiva</h2>
         <button onclick="mostrarCadastrarPreventiva()">Cadastrar Preventiva</button>
         <button onclick="mostrarStatusPreventiva()">Status Preventiva</button>
     </div>
@@ -26,30 +32,31 @@
     <div id="manutencao-pendentes" style="display:none;">
         <h2>Manutenções Pendentes</h2>
         <div id="placas-pendentes"></div>
-        <button onclick="voltarParaOpcoes()">Voltar</button>
+        <button onclick="voltarParaOpcoesCorretiva()">Voltar</button>
     </div>
 
     <!-- Cadastrar Manutenção -->
     <div id="cadastrar-manutencao" style="display:none;">
         <h2>Cadastrar Manutenção</h2>
         <div id="placas-cadastro"></div>
-        <button onclick="voltarParaOpcoes()">Voltar</button>
+        <button onclick="voltarParaOpcoesCorretiva()">Voltar</button>
     </div>
 
     <!-- Cadastrar Preventiva -->
     <div id="cadastrar-preventiva" style="display:none;">
         <h2>Cadastrar Manutenção Preventiva</h2>
         <div id="placas-preventiva"></div>
-        <button onclick="voltarParaOpcoes()">Voltar</button>
+        <button onclick="voltarParaOpcoesPreventiva()">Voltar</button>
     </div>
 
     <!-- Status Preventiva -->
     <div id="status-preventiva" style="display:none;">
         <h2>Status Manutenções Preventivas</h2>
         <div id="placas-status"></div>
-        <button onclick="voltarParaOpcoes()">Voltar</button>
+        <button onclick="voltarParaOpcoesPreventiva()">Voltar</button>
     </div>
 
     <script src="script.js"></script>
 </body>
 </html>
+
