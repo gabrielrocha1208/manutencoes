@@ -28,7 +28,7 @@ button:hover {
     background-color: #2980b9;
 }
 
-#placas-status, #placas-preventiva {
+#placas-pendentes, #placas-cadastro, #placas-preventiva, #placas-status {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
