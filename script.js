@@ -71,14 +71,21 @@ function mostrarStatusPreventiva() {
     inicializarPlacas("placas-status");
 }
 
-// Função para voltar para a tela de opções de manutenção corretiva
+// Função para voltar para a tela inicial
+function voltarParaTelaInicial() {
+    document.getElementById("tela-inicial").style.display = "block";
+    document.getElementById("tela-opcoes-corretiva").style.display = "none";
+    document.getElementById("tela-opcoes-preventiva").style.display = "none";
+}
+
+// Função para voltar para a tela de opções corretiva
 function voltarParaOpcoesCorretiva() {
     document.getElementById("manutencao-pendentes").style.display = "none";
     document.getElementById("cadastrar-manutencao").style.display = "none";
     document.getElementById("tela-opcoes-corretiva").style.display = "block";
 }
 
-// Função para voltar para a tela de opções de manutenção preventiva
+// Função para voltar para a tela de opções preventiva
 function voltarParaOpcoesPreventiva() {
     document.getElementById("cadastrar-preventiva").style.display = "none";
     document.getElementById("status-preventiva").style.display = "none";
