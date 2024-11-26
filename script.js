@@ -31,56 +31,61 @@ function inicializarPlacas(tipo) {
     });
 }
 
-// Função para exibir tela inicial
-function entrar() {
+// Função para exibir tela inicial de manutenção corretiva
+function entrarCorretiva() {
     document.getElementById("tela-inicial").style.display = "none";
-    document.getElementById("tela-opcoes").style.display = "block";
+    document.getElementById("tela-opcoes-corretiva").style.display = "block";
 }
 
-// Função para mostrar a tela de manutenção preventiva
-function mostrarManutencaoPreventiva() {
+// Função para exibir tela inicial de manutenção preventiva
+function entrarPreventiva() {
     document.getElementById("tela-inicial").style.display = "none";
-    document.getElementById("tela-opcoes").style.display = "block";
+    document.getElementById("tela-opcoes-preventiva").style.display = "block";
 }
 
 // Função para mostrar as manutenções pendentes
 function mostrarManutencaoPendentes() {
-    document.getElementById("tela-opcoes").style.display = "none";
+    document.getElementById("tela-opcoes-corretiva").style.display = "none";
     document.getElementById("manutencao-pendentes").style.display = "block";
     inicializarPlacas("placas-pendentes");
 }
 
 // Função para mostrar o formulário de cadastro
 function mostrarCadastrarManutencao() {
-    document.getElementById("tela-opcoes").style.display = "none";
+    document.getElementById("tela-opcoes-corretiva").style.display = "none";
     document.getElementById("cadastrar-manutencao").style.display = "block";
     inicializarPlacas("placas-cadastro");
 }
 
 // Função para mostrar tela de cadastro preventiva
 function mostrarCadastrarPreventiva() {
-    document.getElementById("tela-opcoes").style.display = "none";
+    document.getElementById("tela-opcoes-preventiva").style.display = "none";
     document.getElementById("cadastrar-preventiva").style.display = "block";
     inicializarPlacas("placas-preventiva");
 }
 
 // Função para mostrar status da preventiva
 function mostrarStatusPreventiva() {
-    document.getElementById("tela-opcoes").style.display = "none";
+    document.getElementById("tela-opcoes-preventiva").style.display = "none";
     document.getElementById("status-preventiva").style.display = "block";
     inicializarPlacas("placas-status");
 }
 
-// Função para voltar para a tela de opções
-function voltarParaOpcoes() {
+// Função para voltar para a tela de opções de manutenção corretiva
+function voltarParaOpcoesCorretiva() {
     document.getElementById("manutencao-pendentes").style.display = "none";
     document.getElementById("cadastrar-manutencao").style.display = "none";
-    document.getElementById("cadastrar-preventiva").style.display = "none";
-    document.getElementById("status-preventiva").style.display = "none";
-    document.getElementById("tela-opcoes").style.display = "block";
+    document.getElementById("tela-opcoes-corretiva").style.display = "block";
 }
 
-// Função para cadastrar manutenção
+// Função para voltar para a tela de opções de manutenção preventiva
+function voltarParaOpcoesPreventiva() {
+    document.getElementById("cadastrar-preventiva").style.display = "none";
+    document.getElementById("status-preventiva").style.display = "none";
+    document.getElementById("tela-opcoes-preventiva").style.display = "block";
+}
+
+// Função para cadastrar uma manutenção
 function cadastrarManutencao(placa) {
     const manutencaoDescricao = prompt("Cadastre a nova manutenção para " + placa);
     if (manutencaoDescricao) {
@@ -93,12 +98,37 @@ function cadastrarManutencao(placa) {
     }
 }
 
+// Função para mostrar as manutenções de uma placa
+function mostrarManutencaoPorPlaca(placa) {
+    const manutencaoList = document.createElement("div");
+    manutencaoList.classList.add("manutencao-list");
+
+    const manutencao = manutencoes[placa] || [];
+    manutencao.forEach((manutencaoItem, index) => {
+        const p = document.createElement("p");
+        p.innerText = manutencaoItem;
+        const concluirButton = document.createElement("button");
+        concluirButton.classList.add("manutencao-button");
+        concluirButton.innerText = "Concluir Manutenção";
+        concluirButton.onclick = () => {
+            manutencoes[placa].splice(index, 1); // Remove a manutenção da lista
+            localStorage.setItem("manutencoes", JSON.stringify(manutencoes)); // Atualiza no localStorage
+            mostrarManutencaoPorPlaca(placa); // Atualiza a lista
+        };
+        manutencaoList.appendChild(p);
+        manutencaoList.appendChild(concluirButton);
+    });
+
+    document.getElementById("placas-pendentes").innerHTML = "";
+    document.getElementById("placas-pendentes").appendChild(manutencaoList);
+}
+
 // Função para cadastrar manutenção preventiva
 function cadastrarPreventiva(placa) {
-    const tipoPreventiva = prompt("Tipo de preventiva (Ex: Troca de óleo, Inspeção)");
-    const dataPreventiva = prompt("Data da preventiva");
-    const proximaPreventiva = prompt("Próxima preventiva (data)");
-
+    const tipoPreventiva = prompt("Qual o tipo de preventiva?");
+    const dataPreventiva = prompt("Qual a data da preventiva?");
+    const proximaPreventiva = prompt("Qual a próxima preventiva?");
+    
     if (tipoPreventiva && dataPreventiva && proximaPreventiva) {
         if (!preventivas[placa]) {
             preventivas[placa] = [];
@@ -109,13 +139,13 @@ function cadastrarPreventiva(placa) {
     }
 }
 
-// Função para mostrar manutenções preventivas
+// Função para mostrar as preventivas cadastradas
 function mostrarStatusPreventiva(placa) {
     const statusDiv = document.createElement("div");
     statusDiv.classList.add("preventiva-list");
 
     const preventivasList = preventivas[placa] || [];
-    preventivasList.forEach((preventivaItem, index) => {
+    preventivasList.forEach(preventivaItem => {
         const p = document.createElement("p");
         p.innerText = `Tipo: ${preventivaItem.tipo}, Data: ${preventivaItem.data}, Próxima: ${preventivaItem.proxima}`;
         statusDiv.appendChild(p);
@@ -124,3 +154,4 @@ function mostrarStatusPreventiva(placa) {
     document.getElementById("placas-status").innerHTML = "";
     document.getElementById("placas-status").appendChild(statusDiv);
 }
+
