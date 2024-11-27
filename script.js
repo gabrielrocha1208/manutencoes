@@ -147,7 +147,7 @@ function cadastrarPreventiva(placa) {
 }
 
 // Função para mostrar as preventivas cadastradas
-function mostrarStatusPreventiva(placa) {
+function mostrarStatusPreventivaporplaca(placa) {
     const statusDiv = document.createElement("div");
     statusDiv.classList.add("preventiva-list");
 
